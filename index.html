@@ -16,17 +16,42 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 2;
     }
     #photo-container img {
-      width: 85vw;
-      height: 85vh;
+      width: 90vw;
+      height: 90vh;
       object-fit: contain;
+    }
+    #kisses-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .kiss {
+      position: absolute;
+      font-size: 30px;
+      animation: floatKiss 5s linear infinite;
+      opacity: 0.9;
+    }
+    @keyframes floatKiss {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
     }
     h1 {
       position: absolute;
@@ -93,8 +118,10 @@
     <img src="birthday-photo.jpg" alt="Birthday Photo">
   </div>
 
+  <div id="kisses-container"></div>
+
   <h1>🎉 Happy Birthday! 🎉</h1>
-  <div id="name">ASKIM</div>
+  <div id="name">ASKIM My Sweety</div>
 
   <audio id="birthday-audio">
     <source src="happy-birthday.mp3" type="audio/mpeg">
@@ -166,6 +193,19 @@
     }, 1000);
 
     loop();
+
+    // 💋 Floating kisses
+    function createKiss() {
+      const kiss = document.createElement("span");
+      kiss.className = "kiss";
+      kiss.innerText = "💋";
+      kiss.style.left = Math.random() * 100 + "vw";
+      kiss.style.top = "100vh";
+      document.getElementById("kisses-container").appendChild(kiss);
+      setTimeout(() => kiss.remove(), 5000);
+    }
+
+    setInterval(createKiss, 700);
   </script>
 
 </body>
